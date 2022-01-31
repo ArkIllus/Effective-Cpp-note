@@ -71,6 +71,9 @@
 
 38. 通过复合塑模出has-a或"根据某物实现出" （Model "has-a" or "is-implemented-in-terms-of" through composition)
 
+    - 复合（composition）的意义和public继承完全不同。
+    - 在应用域（application domain），复合意味着has-a（有一个），在实现域（implementation domain），复合意味着 is-implemented-in-terms-of（根据某物实现出）。
+
 39. 明智而审慎地使用private继承 （Use private inheritance judiciously)
 
     * private 继承意味着is implemented in terms of（根据某物实现出）， 通常比复合（composition）的级别低，但是当derived class 需要访问protected base class 的成员，或者需要重新定义继承而来的virtual函数时，这么设计是合理的。
