@@ -16,6 +16,10 @@
 
 3. 尽可能使用const（Use const whenever possible.)
 
+   - 将某些东西声明为const可以帮助编译器检查出错误用法。const可被施加于任何作用域内的对象、函数参数、函数返回类型、成员函数本体。
+   - 编译器强制实施bitwise constness，但你编写程序时应该使用“概念上的常量性”（conceptual constness）。
+   - 当const和非const版本有着实质等价的实现时，令non-const版本调用const版本可以避免代码重复。
+
 4. 确定对象被使用前已先被初始化（Make sure that objects are initialized before they're used.)
 
 #### 二、构造/析构/赋值运算 (Constructors, Destructors, and Assignment Operators)
