@@ -22,6 +22,12 @@
 
 4. 确定对象被使用前已先被初始化（Make sure that objects are initialized before they're used.)
 
+   * 为内置型对象进行手工初始化，因为C++不保证初始化他们。
+
+   * 构造函数最好使用成员初值列（member initialization list），而不要在构造函数本体内使用赋值操作（assignment）。初值列列出的成员变量，其排列次序应该和它们在class中的声明次序相同。
+
+   * 为免除“跨文件编译的初始化次序问题”，应该以local static对象替换non-local static对象。
+
 #### 二、构造/析构/赋值运算 (Constructors, Destructors, and Assignment Operators)
 
 5. 了解C++ 那些自动生成和调用的函数（Know what functions C++ silently writes and calls.)

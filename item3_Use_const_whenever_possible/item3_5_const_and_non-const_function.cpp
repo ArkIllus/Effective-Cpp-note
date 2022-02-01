@@ -1,4 +1,5 @@
-// 让non-const函数调用其const版本，避免代码重复——即使这需要转型动作
+// 让non-const函数调用其const 版本，避免代码重复——即使这需要转型动作
+// 不能反过来，让const版本调用non-const版本
 
 class TextBook {
 public:
