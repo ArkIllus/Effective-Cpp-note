@@ -3,8 +3,19 @@
 #### 一、让自己习惯C++ (Accustoming Yourself to C++ )
 
 1. 视C++ 为一个语言联邦 （View C++ as a federation of languages )
+
+   * 四个次语言：C、Object-Oriented C++、Template C++、STL。
+
+   * C++高效编程守则视状况而变化，取决于使用C++的哪一部分（哪个次语言）。
+
 2. 尽量以const, enum, inline替换#defines（Prefer consts,enums, and inlines to #defines.)
+
+   * 对于单纯的常量，最好以const对象或enums替换#define。
+
+   * 对于形似函数的宏（macro），最好改用inline函数替换#define。
+
 3. 尽可能使用const（Use const whenever possible.)
+
 4. 确定对象被使用前已先被初始化（Make sure that objects are initialized before they're used.)
 
 #### 二、构造/析构/赋值运算 (Constructors, Destructors, and Assignment Operators)
