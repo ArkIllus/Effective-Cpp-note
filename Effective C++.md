@@ -31,7 +31,9 @@
 #### 二、构造/析构/赋值运算 (Constructors, Destructors, and Assignment Operators)
 
 5. 了解C++ 那些自动生成和调用的函数（Know what functions C++ silently writes and calls.)
+   - 编译器可以自动为class生成default构造函数、copy拷贝构造函数，copy assignment拷贝赋值操作符，以及析构函数。
 6. 若不想使用编译器自动生成的函数，就该明确拒绝（Explicitly disallow the use of compiler-generated functions you do not want.)
+   - 为驳回编译器自动（暗自）提供的机能（即默认自动生成函数），可将相应的成员函数声明为private并且不予实现。或者设置成delete的，或者private继承一个Uncopyable的base class。
 7. 为多态基类声明virtual析构函数（Declare destructors virtual in polymorphic base classes.)
 8. 别让异常逃离析构函数（Prevent exceptions from leaving destructors.)
 9. 绝不在构造和析构过程中调用virtual函数（Never call virtual functions during construction or destruction.)
@@ -55,7 +57,10 @@
     - “阻止误用”的办法包括建立新类型、限制类型上的操作，束缚对象值，以及消除客户的资源管理责任。
     - shared_ptr支持定制删除器。这可防范dll问题，可被用来自动解除互斥锁（mutexes;见条款14）等。
 19. 设计class犹如设计type （Treat class design as type design)
+    * 略
 20. 以pass-by-reference-to-const替换pass-by-value （Prefer pass-by-reference-to-const to pass-by-value)
+    * 尽量以pass-by-reference-to-const替换pass-by-value。前者通常比较高效，并可避免切割问题（slicing problem）。
+    * 以上规则并不适用于内置类型，以及STL的迭代器和函数对象。对它们而言，pass-by-value往往比较适当。
 21. 必须返回对象时，别妄想返回其reference （Don't try to return a reference when you must return an object)
     * 绝不要返回pointer或reference指向一个local stack对象，或返回reference指向一个heap-allocated对象，或返回pointer或reference指向一个local static对象而有可能同时需要多个这样的对象。条款4已经为“在单线程环境中合理返回reference指向一个local static对象”提供了一份设计实例。
 22. 将成员变量声明为private （Declare data members private)
@@ -77,36 +82,31 @@
 32. 确定你的public继承塑模出is-a关系 （Make sure public inheritance models "is-a.")
 
     - “public继承”意味is-a。适用于base classes身上的每一件事情一定也适用于derived classes身上，因为每一个derived class对象也是一个base class对象。
-
 33. 避免遮掩继承而来的名称 （Avoid hiding inherited names)
-
 34. 区分接口继承和实现继承 （Differentiate between inheritance of interface and inheritance of implementation)
 
     - 接口继承和实现继承不同，在public继承下，derived classes总是继承base class的接口。
     - pure virtual函数只具体指定接口继承。
     - 简朴的（非纯）impure virtual函数具体指定接口继承以及缺省实现继承。
     - non-virtual函数具体指定接口继承以及强制性的实现继承。
-
 35. 考虑virtual函数以外的其他选择 （Consider alternatives to virtual functions)
-
 36. 绝不重新定义继承而来的non-virtual函数 （Never redefine an inherited non-virtual function)
 
     * 绝对不要重新定义继承而来的non-virtual函数。
-
 37. 绝不重新定义继承而来的缺省参数值 （Never redefine a function's inherited default parameter value)
-
 38. 通过复合塑模出has-a或"根据某物实现出" （Model "has-a" or "is-implemented-in-terms-of" through composition)
 
     - 复合（composition）的意义和public继承完全不同。
     - 在应用域（application domain），复合意味着has-a（有一个），在实现域（implementation domain），复合意味着 is-implemented-in-terms-of（根据某物实现出）。
-
 39. 明智而审慎地使用private继承 （Use private inheritance judiciously)
 
     * private 继承意味着is implemented in terms of（根据某物实现出）， 通常比复合（composition）的级别低，但是当derived class 需要访问protected base class 的成员，或者需要重新定义继承而来的virtual函数时，这么设计是合理的。
 
     * 和复合（composition）不同，private继承可以造成empty base最优化，这对致力于“对象尺寸最小化”的程序库开发者而言，可能很重要。
-
 40. 明智而审慎地使用多重继承 （Use multiple inheritance judiciously)
+    - 多重继承比单一继承复杂。它可能导致新的歧义性，以及对virtual继承的需要。
+    - virtual继承会增加大小、速度、初始化（及赋值）复杂度等成本，如果virtual base classes不带任何数据，将是最具实用价值的情况
+    - 多重继承的确有正当用途。其中一个使用情况：当一个类“public继承某个interface class”和“private继承某个协助实现的class”两个相结合的时候。
 
 #### 七、模板与泛型编程 (Templates and Generic Programming)
 
